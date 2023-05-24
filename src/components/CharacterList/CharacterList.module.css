@@ -1,0 +1,40 @@
+.list{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.loader{
+
+    display: flex;
+    justify-content: center;
+    margin-top: 50%;
+}
+
+.pageWrapper{
+    margin: 10px;
+   
+    cursor: pointer; 
+    
+    
+
+}
+
+.pageCurent{
+    border : 2px solid orange; 
+    font-weight: bold;
+    margin: 2px;
+    padding: 5px;
+
+}
+
+.pageEl{
+    border: 1px solid black; 
+    margin: 2px;
+    padding: 5px;
+
+    
+}
