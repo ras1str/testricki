@@ -1,25 +1,16 @@
-import Main from '../../pages/Main'
 import styles from './NavBar.module.css'
-import {Outlet, Link} from 'react-router-dom'
+import { Outlet, Link } from 'react-router-dom'
 const Navbar = () => {
 
-    return(
+    return (
         <>
+            <header className={styles.navbar}>
+                <Link to='/'>Main</Link>
+            </header>
 
-        <header className={styles.navbar}>
-            <Link  to='/'>Main</Link>
-        </header>
-    
-        <Outlet/>
-
-
-
-        
-
+            <Outlet />
         </>
     )
-
 }
-
 
 export default Navbar

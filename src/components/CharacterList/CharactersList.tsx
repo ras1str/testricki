@@ -10,7 +10,6 @@ import { Character } from '../../Interfaces';
 
 const CharactersList: React.FC = () => {
   const [characters, setCharacters] = useState<Character[]>([]);//массив объектов персонажей
-
   const [itPage, setItPage] = useState(1)//Текущая страница 
   const [pages, setPages] = useState(0)// сколько всего страниц
   
@@ -19,54 +18,24 @@ const CharactersList: React.FC = () => {
     const response = await PostService.getAll(itPage)
     setCharacters(response.data.results)
     setPages(response.data.info.pages)
-
-
-    
-
     }
   )
 
   const updatePosts = (value:any) => {
-    
     setCharacters(value.results)
     setPages(value.info.pages)
-
   }
-
-
 
   useEffect(() => {
-
     fetchPosts()
-
   }, [itPage])
-
-
-  const onPageHandlerPlus = () => {
-    if (itPage < pages) {
-      setItPage(itPage + 1)
-    }
-
-  }
-
-  const onPageHandlerMinus = () => {
-    if (itPage > 1) {
-      setItPage(itPage - 1)
-    }
-
-  }
 
 
   return (
 
     <>
       <FilterCharacter updatePosts={updatePosts}/>
-      <div className={styles.pageWrapper}>
-        <span>Пагинация страниц</span>
-        <span onClick={onPageHandlerMinus}>❮ </span>
-        <span>{itPage}</span>
-        <span onClick={onPageHandlerPlus}> ❯</span>
-      </div>
+      
       {postError && <h1>{postError}</h1>}
       {
         isPostLoading
@@ -91,15 +60,7 @@ const CharactersList: React.FC = () => {
             ))}
           </div>
       }
-     <div className={styles.pageWrapper}>
-        <span onClick={onPageHandlerMinus}>❮ </span>
-        <span>{itPage}</span>
-        <span onClick={onPageHandlerPlus}> ❯</span>
-      </div>
-
     </>
-
-
   );
 };
 

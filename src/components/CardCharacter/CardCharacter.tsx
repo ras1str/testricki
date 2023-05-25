@@ -3,13 +3,9 @@ import styles from './CardCharacter.module.css'
 import { Character } from "../../Interfaces";
 
 
+const CardCharacter: React.FC<Character> = ({ image, name, species, status, gender }) => {
 
-
-const CardCharacter: React.FC<Character> = ({image, name, species, status, gender }) => {
-
-   
     return (
-
         <div className={styles.card}>
             <img src={image} alt={name} />
             <div className="card__info">
@@ -17,14 +13,8 @@ const CardCharacter: React.FC<Character> = ({image, name, species, status, gende
                 <p>{species}</p>
                 <p>{status}</p>
                 <p>{gender}</p>
-
-                
-                
-
             </div>
         </div>
-
-
     )
 }
 
