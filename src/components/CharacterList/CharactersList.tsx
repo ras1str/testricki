@@ -12,7 +12,9 @@ const CharactersList: React.FC = () => {
   const [characters, setCharacters] = useState<Character[]>([]);//массив объектов персонажей
   const [itPage, setItPage] = useState(1)//Текущая страница 
   const [pages, setPages] = useState(0)// сколько всего страниц
-  
+  const [isDataLoading, setIsDataLoading] = useState(false)
+  const [error, setError] = useState('')
+
   const [fetchPosts, isPostLoading, postError] = useFetching(async () => {
     // Запрос на сервер для получения объектов по страницам
     const response = await PostService.getAll(itPage)
@@ -26,6 +28,20 @@ const CharactersList: React.FC = () => {
     setPages(value.info.pages)
   }
 
+  const updateLoading = (value:boolean) => {
+
+    setIsDataLoading(value)
+
+  }
+
+  const updateError = (value:string) => {
+
+    setError(value)
+    
+
+  }
+
+
   useEffect(() => {
     fetchPosts()
   }, [itPage])
@@ -34,11 +50,11 @@ const CharactersList: React.FC = () => {
   return (
 
     <>
-      <FilterCharacter updatePosts={updatePosts}/>
+      <FilterCharacter updatePosts={updatePosts} updateLoading={updateLoading} updateError={updateError} />
       
-      {postError && <h1>{postError}</h1>}
+      {error && <h1>{error}</h1>}
       {
-        isPostLoading
+        isDataLoading
           ? <div className={styles.loader}><Loader /></div>
           : <div className={styles.list}>
 

@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import PostServiceFilter from '../../service/PostServiceFilter';
 import { Callback } from '../../Interfaces';
+import { useFetching } from '../../hooks/useFetching';
 
-const FilterCharacter: React.FC<Callback> = ({ updatePosts }) => {
+
+const FilterCharacter: React.FC<Callback> = ({ updatePosts, updateLoading, updateError }) => {
   const [statusFilter, setStatusFilter] = useState('');
   const [genderFilter, setGenderFilter] = useState('')
   const [itPage, setItPage] = useState(1)
   const [pages, setPages] = useState(1)
 
-  const fetchData = async () => {
+  
+
+  const [fetchData, isDataLoading, dataError] = useFetching(async () => {
+    // Запрос на сервер для получения объектов по страницам
     let url = `https://rickandmortyapi.com/api/character/`;
     if (itPage > 1) {
       url += `?page=${itPage}`
@@ -19,10 +24,16 @@ const FilterCharacter: React.FC<Callback> = ({ updatePosts }) => {
     if (genderFilter) {
       url += `${statusFilter ? '&' : '?'}gender=${genderFilter}`;
     }
+
+
     const response = await PostServiceFilter.getFilter(itPage, url);
     updatePosts(response.data)
     setPages(response.data.info.pages)
-  }
+    updateLoading(isDataLoading)
+    updateError(dataError)
+    }
+  )
+
 
   useEffect(() => {
     fetchData()
@@ -31,7 +42,6 @@ const FilterCharacter: React.FC<Callback> = ({ updatePosts }) => {
   const onPageHandlerPlus = () => {
     if (itPage < pages) {
       setItPage(itPage + 1)
-      console.log(itPage)
     }
   }
 

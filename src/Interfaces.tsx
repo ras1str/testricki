@@ -10,5 +10,8 @@ export interface Character {
 
   export interface Callback { 
     updatePosts: (value: Character[]) => void;
+    updateLoading: (value: boolean) => void;
+    updateError: (value: string) => void;
+    
 
 }
