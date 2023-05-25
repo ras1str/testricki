@@ -27,7 +27,7 @@ const FilterCharacter: React.FC<Callback> = ({ updatePosts, updateLoading, updat
 
 
     const response = await PostServiceFilter.getFilter(itPage, url);
-    updatePosts(response.data)
+    updatePosts(response.data.results , response.data.info.pages)
     setPages(response.data.info.pages)
     updateLoading(isDataLoading)
     updateError(dataError)

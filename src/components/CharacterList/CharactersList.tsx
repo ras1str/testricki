@@ -1,31 +1,20 @@
-import React, { useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {NavLink} from 'react-router-dom'
 import Card from '../CardCharacter/CardCharacter';
 import styles from "./CharacterList.module.css"
-import { useFetching } from '../../hooks/useFetching';
-import PostService from '../../service/PostService';
 import { Loader } from '../UI/Loader';
 import FilterCharacter from '../Filter/FilterCharacter';
 import { Character } from '../../Interfaces';
 
 const CharactersList: React.FC = () => {
   const [characters, setCharacters] = useState<Character[]>([]);//массив объектов персонажей
-  const [itPage, setItPage] = useState(1)//Текущая страница 
   const [pages, setPages] = useState(0)// сколько всего страниц
   const [isDataLoading, setIsDataLoading] = useState(false)
   const [error, setError] = useState('')
 
-  const [fetchPosts, isPostLoading, postError] = useFetching(async () => {
-    // Запрос на сервер для получения объектов по страницам
-    const response = await PostService.getAll(itPage)
-    setCharacters(response.data.results)
-    setPages(response.data.info.pages)
-    }
-  )
-
-  const updatePosts = (value:any) => {
-    setCharacters(value.results)
-    setPages(value.info.pages)
+  const updatePosts = (value: Character[], pages: number) => {
+    setCharacters(value)
+    setPages(pages)
   }
 
   const updateLoading = (value:boolean) => {
@@ -35,17 +24,8 @@ const CharactersList: React.FC = () => {
   }
 
   const updateError = (value:string) => {
-
     setError(value)
-    
-
   }
-
-
-  useEffect(() => {
-    fetchPosts()
-  }, [itPage])
-
 
   return (
 
